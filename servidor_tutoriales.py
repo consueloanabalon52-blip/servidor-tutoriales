@@ -4,7 +4,7 @@ from firecrawl import Firecrawl
 app = Flask(__name__)
 
 # Pega tu CLAVE NUEVA de Firecrawl aqui
-firecrawl = Firecrawl(api_key="TU_CLAVE_NUEVA_AQUI")
+firecrawl = Firecrawl(api_key="fc-169b83f5e458454abb49684f71225e74")
 
 @app.route('/tutoriales', methods=['POST'])
 def tutoriales():
