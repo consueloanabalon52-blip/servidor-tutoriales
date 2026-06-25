@@ -4,7 +4,7 @@ from firecrawl import Firecrawl
 app = Flask(__name__)
 
 # Pega tu CLAVE NUEVA de Firecrawl aqui
-firecrawl = Firecrawl(api_key="fc-3c75339e3c364844bd88d9279776f522")
+firecrawl = Firecrawl(api_key="TU_CLAVE_NUEVA_AQUI")
 
 @app.route('/tutoriales', methods=['POST'])
 def tutoriales():
@@ -16,9 +16,10 @@ def tutoriales():
         return "FALTA_TEMA", 400
 
     consulta = f"{tema} tutorial"
+    print(f"[DEBUG] Consulta usada: {consulta}")
 
     try:
-        resultados = firecrawl.search(query=consulta, limit=5)
+        resultados = firecrawl.search(query=consulta, limit=5, sources=["web"])
         print(f"[DEBUG] Tipo de resultado: {type(resultados)}")
         print(f"[DEBUG] Resultado completo: {resultados}")
     except Exception as e:
