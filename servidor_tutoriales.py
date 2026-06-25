@@ -3,7 +3,7 @@ from firecrawl import Firecrawl
 
 app = Flask(__name__)
 
-# Tu clave de Firecrawl
+# Pega tu CLAVE NUEVA de Firecrawl aqui
 firecrawl = Firecrawl(api_key="fc-3c75339e3c364844bd88d9279776f522")
 
 @app.route('/tutoriales', methods=['POST'])
@@ -15,22 +15,23 @@ def tutoriales():
     if not tema:
         return "FALTA_TEMA", 400
 
-    # Armamos la consulta de búsqueda, siempre enfocada en reciclaje/manualidades
-    consulta = f"{tema} reciclaje manualidades tutorial"
+    consulta = f"{tema} tutorial"
 
     try:
         resultados = firecrawl.search(query=consulta, limit=5)
+        print(f"[DEBUG] Tipo de resultado: {type(resultados)}")
+        print(f"[DEBUG] Resultado completo: {resultados}")
     except Exception as e:
         print(f"[ERROR] No se pudo buscar: {e}")
         return "ERROR_BUSQUEDA", 500
 
     items = resultados.web or []
+    print(f"[DEBUG] Cantidad de items: {len(items)}")
 
     if not items:
         print("[INFO] No se encontraron resultados.")
         return "SIN_RESULTADOS", 200
 
-    # Armamos el texto: titulo,url ; titulo,url ; ...
     partes = []
     for r in items[:5]:
         titulo = (r.title or "Sin titulo").replace(",", " ").replace(";", " ")
