@@ -1,3 +1,2 @@
 flask
-firecrawl-py==4.3.6
 gunicorn
